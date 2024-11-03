@@ -18,6 +18,10 @@ class TestBuyHappyRemove1:
         home_page = HomePage()
         select_sticker = SelectSticker()
         go_to_cart_page = ShoppingCartPage()
+        click_on_happy = ShoppingCartPage()
+        remove_happy = ShoppingCartPage()
+        empty_cart_page = ShoppingCartPage()
+
 
         #open page and find Stickerfy title
         #assert driver.find_element(By.XPATH, "//a[@class='navbar-brand' and text()='Stickerfy']").is_displayed()
@@ -32,11 +36,14 @@ class TestBuyHappyRemove1:
         go_to_cart_page.click_go_to_cart_button()
 
         #remove stickfy clicking on button "Remove 1"
-        driver.find_element(By.XPATH, "//li[contains(., 'Happy')]//button").click()
-        driver.find_element(By.XPATH, "//a[@href='/reduce/5dd8e2b26c26d0000a675cf9' and text()='Remove 1']").click()
-        wait = WebDriverWait(driver, 5)
-        wait.until(EC.presence_of_element_located((By.XPATH, "//h2[text()='Add items to the cart']")))
+        #driver.find_element(By.XPATH, "//li[contains(., 'Happy')]//button").click()
+        click_on_happy.click_on_sticker()
 
+        #driver.find_element(By.XPATH, "//a[@href='/reduce/5dd8e2b26c26d0000a675cf9' and text()='Remove 1']").click()
+        remove_happy.remove_sticker()
+        #wait = WebDriverWait(driver, 5)
+        #wait.until(EC.presence_of_element_located((By.XPATH, "//h2[text()='Add items to the cart']")))
+        empty_cart_page.empty_page()
 
 
 

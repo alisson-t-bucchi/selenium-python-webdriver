@@ -18,4 +18,7 @@ class SelectSticker(BasePage):
     def sticker_happy(self):
         self.click(self.href_happy)
 
+    def select_2_happy(self):
+        self.double_click(self.href_happy)
+
 
