@@ -1,3 +1,4 @@
+import time
 import conftest
 from selenium.webdriver.common.by import By
 from pages.base_page import BasePage
@@ -6,9 +7,9 @@ from pages.base_page import BasePage
 class SelectSticker(BasePage):
     def __init__(self): #construtor da classe
         self.driver = conftest.driver
-        self.href_happy = (By.XPATH, "//a[@href='/add-to-cart/5dd8e2b26c26d0000a675cf9']")
-        self.href_sad = (By.XPATH, "//a[@href='/add-to-cart/5dd8e2b26c26d0000a675cfb']")
-        self.href_angry = (By.XPATH, "//a[@href='/add-to-cart/5dd8e2b26c26d0000a675cfa']")
+        self.href_happy = (By.XPATH, "//a[@href='/add-to-cart/5dd8e2b26c26d0000a675cf9' and text()='Add to cart']")
+        self.href_sad = (By.XPATH, "//a[@href='/add-to-cart/5dd8e2b26c26d0000a675cfb' and text()='Add to cart']")
+        self.href_angry = (By.XPATH, "//a[@href='/add-to-cart/5dd8e2b26c26d0000a675cfa' and text()='Add to cart']")
 
 
     def sticker_happy(self):
@@ -25,7 +26,9 @@ class SelectSticker(BasePage):
         self.click(self.href_angry)
         self.click(self.href_sad)
 
-    def select_2_happy(self):
+    def select_2_of_each_sticker(self):
         self.double_click(self.href_happy)
+        self.double_click(self.href_sad)
+        self.double_click(self.href_angry)
 
 
