@@ -10,7 +10,7 @@ from pages.shopping_cart_page import ShoppingCartPage
 
 
 @pytest.mark.usefixtures("setup_teardown")
-@pytest.mark.buy
+@pytest.mark.buyAllStickers
 class TestBuyAllStickers:
 
     def test_buy_all_stickers(self):
@@ -31,9 +31,8 @@ class TestBuyAllStickers:
         #driver.find_element(By.XPATH, "//a[@href='/add-to-cart/5dd8e2b26c26d0000a675cfa']").click()
         #driver.find_element(By.XPATH, "//a[@href='/add-to-cart/5dd8e2b26c26d0000a675cfb']").click()
         select_sticker.all_stickers()
-        #breakpoint()
-        buy_2_stickers.select_2_happy()
 
+        #buy_2_stickers.select_2_happy()
 
         #click on "Go to cart" button
         #driver.find_element(By.XPATH, "//a[@href='/shopping-cart/' and text()='Go to cart']").click()

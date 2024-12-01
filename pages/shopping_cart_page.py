@@ -12,13 +12,22 @@ class ShoppingCartPage(BasePage):
         self.remove_happy = (By.XPATH, "//a[@href='/reduce/5dd8e2b26c26d0000a675cf9' and text()='Remove 1']")
         self.empty_shopping_cart = (By.XPATH, "//h2[text()='Add items to the cart']")
 
-    def click_go_to_cart_button(self):
-        self.click(self.go_to_cart_button)
+    def verify_happy (self):
+        self.find_elements(self.have_happy)
+
+    def verify_sad(self):
+        self.find_elements(self.have_sad)
+
+    def verify_angry(self):
+        self.find_element(self.have_angry)
 
     def verify_all_stickers(self):
         self.find_elements(self.have_happy)
         self.find_elements(self.have_sad)
         self.find_elements(self.have_angry)
+
+    def click_go_to_cart_button(self):
+        self.click(self.go_to_cart_button)
 
     def click_on_sticker(self):
         self.click(self.have_happy)
@@ -28,3 +37,4 @@ class ShoppingCartPage(BasePage):
 
     def empty_page(self):
         self.wait_element(self.empty_shopping_cart)
+
