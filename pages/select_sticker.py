@@ -23,12 +23,10 @@ class SelectSticker(BasePage):
 
     def all_stickers(self):
         self.click(self.href_happy)
-        self.click(self.href_angry)
         self.click(self.href_sad)
+        self.click(self.href_angry)
 
     def select_2_of_each_sticker(self):
-        self.double_click(self.href_happy)
-        self.double_click(self.href_sad)
-        self.double_click(self.href_angry)
-
-
+       self.double_click(self.href_happy)
+       self.double_click(self.href_sad)
+       self.double_click(self.href_angry)

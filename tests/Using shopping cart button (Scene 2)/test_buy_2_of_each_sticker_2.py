@@ -9,7 +9,7 @@ from pages.select_sticker import SelectSticker
 from pages.shopping_cart_page import ShoppingCartPage
 
 @pytest.mark.usefixtures("setup_teardown")
-@pytest.mark.buyTwoOfEachSticker
+@pytest.mark.buyTwoOfEachStickerScene2
 class TestBuyTwoOfEachSticker:
 
     def test_buy_all_stickers(self):
@@ -24,7 +24,7 @@ class TestBuyTwoOfEachSticker:
 
         buy_2_of_each_stickers.select_2_of_each_sticker()
 
-        go_to_cart_page.click_go_to_cart_button()
+        go_to_cart_page.click_shopping_cart_button()
 
         verify_products.verify_all_stickers()
 

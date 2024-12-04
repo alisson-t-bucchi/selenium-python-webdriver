@@ -10,7 +10,7 @@ from pages.shopping_cart_page import ShoppingCartPage
 
 
 @pytest.mark.usefixtures("setup_teardown")
-@pytest.mark.buyAllStickers
+@pytest.mark.buyAllStickersScene2
 class TestBuyAllStickers:
 
     def test_buy_all_stickers(self):
@@ -36,7 +36,7 @@ class TestBuyAllStickers:
 
         #click on "Go to cart" button
         #driver.find_element(By.XPATH, "//a[@href='/shopping-cart/' and text()='Go to cart']").click()
-        go_to_cart_page.click_go_to_cart_button()
+        go_to_cart_page.click_shopping_cart_button()
         verify_products.verify_all_stickers()
 
         #wait = WebDriverWait(driver, 5)
