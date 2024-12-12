@@ -1,6 +1,8 @@
 # Selenium Project - Page Object Model (POM)
 
-This project uses the Page Object Model (POM) pattern for automated tests with Selenium. It was developed to test the [Stickerfy](https://stickerfy.herokuapp.com/) website and organizes test scenarios for different interactions on the site.
+This project uses the Page Object Model (POM) pattern for automated tests with Selenium. 
+It was developed to test the [Stickerfy](https://stickerfy.herokuapp.com/) website and organizes test scenarios for different interactions on the site.
+Based in pytest framework tool, using fixtures to invoke conftest.py and with specific names for each test.
 
 ## Project Structure
 
@@ -15,11 +17,11 @@ selenium-project-pom/
 |   |-- home_page.py                    # Represents the homepage
 |   |-- select_sticker.py               # Manages sticker selection
 |   |-- shopping_cart_page.py           # Manages interactions on the shopping cart page
+|
 |-- tests/                              # Tests organized by scenario
     |-- using_go_to_cart_button/        # Tests for the "Go to Cart" button
     |-- using_remove_1_button/          # Tests for removing items
     |-- using_shopping_cart_button/     # Tests for the "Shopping Cart" button
-```
 
 ## Prerequisites
 
@@ -45,18 +47,37 @@ The Page Object Model pattern organizes code so that interaction logic with the 
 Example of a method in `base_page.py`:
 
 ```python
-from selenium.webdriver.support.ui import WebDriverWait
+import conftest
+from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver import ActionChains
 
 class BasePage:
-    def __init__(self, driver):
-        self.driver = driver
-
-    def click_element(self, locator):
-        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable(locator)).click()
+    def __init__(self):
+        self.driver = conftest.driver
 
     def find_element(self, locator):
-        return WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
+        return self.driver.find_element(*locator)
+
+    def find_elements(self, locator):
+        return self.driver.find_elements(*locator)
+
+    def click(self, locator):
+        return self.find_element(locator).click()
+
+    def navbar_title(self, locator):
+        assert self.find_element(locator).is_displayed(), f"Element {'locator'} not found!"
+
+    def find_text_element(self, locator):
+        self.wait_element(locator)
+        return self.find_text_element(locator).text
+
+    def wait_element(self, locator, timeout=5):
+        return WebDriverWait(self.driver, timeout).until(EC.presence_of_element_located(locator))
+
+    def double_click(self, locator):
+        element = self.find_element(locator)
+        ActionChains(self.driver).double_click(element).perform()
 ```
 
 ## Running the Tests
@@ -97,13 +118,39 @@ Tests are organized by scenario within the `tests/` folder. Each subfolder repre
 Example of a test:
 
 ```python
-def test_go_to_cart(driver):
-    home_page = HomePage(driver)
-    home_page.add_item_to_cart()
-    home_page.go_to_cart()
+import pytest
+import conftest
+from pages.checkout_page import CheckoutPage
+from pages.home_page import HomePage
+from pages.select_sticker import SelectSticker
+from pages.shopping_cart_page import ShoppingCartPage
 
-    cart_page = ShoppingCartPage(driver)
-    assert cart_page.is_cart_page_displayed()
+@pytest.mark.usefixtures("setup_teardown")
+@pytest.mark.buyHappyScene1
+
+class TestBuyHappy:
+    def test_buy_happy(self):
+        driver = conftest.driver
+        home_page = HomePage()
+        select_sticker = SelectSticker()
+        go_to_cart_page = ShoppingCartPage()
+        verify_products = ShoppingCartPage()
+        complete_checkout = CheckoutPage()
+
+        #open Stickerfy page.
+        home_page.successful_login()
+
+        #select Happy sticker clicking in Add to cart blue button.
+        select_sticker.sticker_happy()
+
+        #go to cart page.
+        go_to_cart_page.click_go_to_cart_button()
+
+        #verification of Happy Sticker into cart page.
+        verify_products.verify_happy()
+
+        #click on checkout and confirm checkout.
+        complete_checkout.full_checkout_page()
 ```
 
 ## Contribution
