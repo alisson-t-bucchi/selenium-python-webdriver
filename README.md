@@ -1,48 +1,48 @@
 # Selenium Project - Page Object Model (POM)
 
-Este projeto utiliza o padrão Page Object Model (POM) para testes automatizados com Selenium. Ele foi desenvolvido para testar o website [Stickerfy](https://stickerfy.herokuapp.com/) e organiza cenários de teste para diferentes interações no site.
+This project uses the Page Object Model (POM) pattern for automated tests with Selenium. It was developed to test the [Stickerfy](https://stickerfy.herokuapp.com/) website and organizes test scenarios for different interactions on the site.
 
-## Estrutura do Projeto
+## Project Structure
 
 ```
 selenium-project-pom/
-|-- .venv/                   # Ambiente virtual contendo dependências
-|-- conftest.py              # Configurações globais e fixtures do pytest
-|-- pages/                   # Arquivos POM representando as páginas do site
-|   |-- __init__.py          # Torna a pasta um módulo Python
-|   |-- base_page.py         # Classe base com métodos genéricos reutilizáveis
-|   |-- checkout_page.py     # Representa a página de checkout
-|   |-- home_page.py         # Representa a página inicial
-|   |-- select_sticker.py    # Gerencia a seleção de adesivos
-|   |-- shopping_cart_page.py# Gerencia interações na página do carrinho
-|-- tests/                   # Testes organizados por cenário
-    |-- using_go_to_cart_button/  # Testes para o botão "Go to Cart"
-    |-- using_remove_1_button/    # Testes para remoção de itens
-    |-- using_shopping_cart_button/ # Testes para o botão "Shopping Cart"
+|-- .venv/                              # Virtual environment containing dependencies
+|-- conftest.py                         # Global configurations and pytest fixtures
+|-- pages/                              # POM files representing the site pages
+|   |-- __init__.py                     # Makes the folder a Python module
+|   |-- base_page.py                    # Base class with reusable generic methods
+|   |-- checkout_page.py                # Represents the checkout page
+|   |-- home_page.py                    # Represents the homepage
+|   |-- select_sticker.py               # Manages sticker selection
+|   |-- shopping_cart_page.py           # Manages interactions on the shopping cart page
+|-- tests/                              # Tests organized by scenario
+    |-- using_go_to_cart_button/        # Tests for the "Go to Cart" button
+    |-- using_remove_1_button/          # Tests for removing items
+    |-- using_shopping_cart_button/     # Tests for the "Shopping Cart" button
 ```
 
-## Pré-requisitos
+## Prerequisites
 
-1. Python 3.8 ou superior instalado.
-2. Google Chrome instalado.
-3. ChromeDriver compatível com sua versão do Chrome.
-4. Instalar dependências do projeto:
+1. Python 3.8 or higher installed.
+2. Google Chrome installed.
+3. ChromeDriver compatible with your Chrome version.
+4. Install project dependencies:
 
 ```bash
 pip install selenium pytest
 ```
 
-## Padrão de Projeto (POM)
+## Project Pattern (POM)
 
-O padrão Page Object Model organiza o código para que a lógica de interação com a interface fique separada dos testes. Isso facilita manutenção e reuso.
+The Page Object Model pattern organizes code so that interaction logic with the interface is separate from the tests. This facilitates maintenance and reuse.
 
 - **`base_page.py`**:
-  Contém métodos genéricos reutilizáveis, como clicar em elementos ou buscar por eles.
+  Contains reusable generic methods, such as clicking on elements or locating them.
 
-- **Demais arquivos em `pages/`**:
-  Cada arquivo representa uma página do site, encapsulando elementos específicos e suas interações.
+- **Other files in `pages/`**:
+  Each file represents a page of the site, encapsulating specific elements and their interactions.
 
-Exemplo de método em `base_page.py`:
+Example of a method in `base_page.py`:
 
 ```python
 from selenium.webdriver.support.ui import WebDriverWait
@@ -59,42 +59,42 @@ class BasePage:
         return WebDriverWait(self.driver, 10).until(EC.presence_of_element_located(locator))
 ```
 
-## Executando os Testes
+## Running the Tests
 
-1. Clone o repositório:
+1. Clone the repository:
 
 ```bash
-git clone <url-do-repositorio>
+git clone <repository-url>
 ```
 
-2. Navegue até o diretório do projeto:
+2. Navigate to the project directory:
 
 ```bash
 cd selenium-project-pom
 ```
 
-3. Execute os testes:
+3. Run the tests:
 
 ```bash
 pytest tests/
 ```
 
-Os resultados serão exibidos no console.
+The results will be displayed in the console.
 
-## Estrutura de Testes
+## Test Structure
 
-Os testes estão organizados por cenário dentro da pasta `tests/`. Cada subpasta representa um fluxo específico:
+Tests are organized by scenario within the `tests/` folder. Each subfolder represents a specific flow:
 
 1. **`using_go_to_cart_button/`**:
-   Testa a navegação até o carrinho usando o botão "Go to Cart".
+   Tests navigation to the cart using the "Go to Cart" button.
 
 2. **`using_remove_1_button/`**:
-   Valida a remoção de itens do carrinho.
+   Validates the removal of items from the cart.
 
 3. **`using_shopping_cart_button/`**:
-   Testa a navegação ao carrinho usando o botão "Shopping Cart".
+   Tests navigation to the cart using the "Shopping Cart" button.
 
-Exemplo de um teste:
+Example of a test:
 
 ```python
 def test_go_to_cart(driver):
@@ -106,10 +106,10 @@ def test_go_to_cart(driver):
     assert cart_page.is_cart_page_displayed()
 ```
 
-## Contribuição
+## Contribution
 
-Contribuições são bem-vindas! Sinta-se à vontade para abrir uma issue ou enviar um pull request com melhorias.
+Contributions are welcome! Feel free to open an issue or submit a pull request with improvements.
 
-## Licença
+## License
 
-Este projeto está sob a licença MIT.
+This project is licensed under the MIT License.
